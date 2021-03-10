@@ -7,21 +7,22 @@ module Exercise
       end
 
       def search(array, query)
-        left = 0
-        right = array.length - 1
-        while left <= right
-          middle = ((left + right) / 2).floor
+        return -1 if array.empty?
+        bisearch(array, query, 0, array.length - 1)
+      end
 
-          return middle if array[middle] == query
+      def bisearch(array, query, left, right)
+        middle = (left + (right - left) / 2).to_i
 
-          if array[middle] < query
-            left = middle + 1
-          else
-            right = middle - 1
-          end
+        return middle if array[middle] == query
+
+        return -1 if left == right
+
+        if array[middle] > query
+          bisearch(array, query, left, middle)
+        else
+          bisearch(array, query, middle + 1, right)
         end
-
-        -1
       end
     end
   end
